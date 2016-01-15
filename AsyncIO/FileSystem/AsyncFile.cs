@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AsyncIO.FileSystem
 {
-    public static class File
+    public static class AsyncFile
     {
         #region AppendAllLinesAsync
 
