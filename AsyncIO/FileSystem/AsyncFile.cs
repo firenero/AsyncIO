@@ -54,22 +54,25 @@ namespace AsyncIO.FileSystem
 
         public static Task AppendAllTextAsync(string path, string contents)
         {
-            return AppendAllTextAsync(path, contents, Encoding.UTF8, CancellationToken.None);
+            return AppendAllTextAsync(path, contents, Encoding.UTF8);
         }
 
-        public static Task AppendAllTextAsync(string path, string contents, Encoding encoding)
+        public static async Task AppendAllTextAsync(string path, string contents, Encoding encoding)
         {
-            return AppendAllTextAsync(path, contents, encoding, CancellationToken.None);
-        }
+            if (contents == null)
+                throw new ArgumentNullException(nameof(contents));
+            if (encoding == null)
+                throw new ArgumentNullException(nameof(encoding));
+            PathValidator.EnsureCorrectFileSystemPath(path);
 
-        public static Task AppendAllTextAsync(string path, string contents, CancellationToken cancellationToken)
-        {
-            return AppendAllTextAsync(path, contents, Encoding.UTF8, cancellationToken);
-        }
-
-        public static Task AppendAllTextAsync(string path, string contents, Encoding encoding, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
+            const int fileBufferSize = 4096;
+            using (var fileStream = new FileStream(path, FileMode.Append, FileAccess.Write, FileShare.None, fileBufferSize, true))
+            {
+                using (var writer = new StreamWriter(fileStream, encoding))
+                {
+                    await writer.WriteAsync(contents).ConfigureAwait(false);
+                }
+            }
         }
 
         #endregion
@@ -92,9 +95,21 @@ namespace AsyncIO.FileSystem
             return CopyAsync(sourceFileName, destFileName, false, cancellationToken);
         }
 
-        public static Task CopyAsync(string sourceFileName, string destFileName, bool overwrite, CancellationToken cancellationToken)
+        public static async Task CopyAsync(string sourceFileName, string destFileName, bool overwrite, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            PathValidator.EnsureCorrectFileSystemPath(sourceFileName);
+            PathValidator.EnsureCorrectFileSystemPath(destFileName);
+
+            const int fileBufferSize = 4096;
+            using (var sourceStream = new FileStream(sourceFileName, FileMode.Open, FileAccess.Read, FileShare.Read, fileBufferSize, true))
+            {
+                var fileMode = overwrite ? FileMode.OpenOrCreate : FileMode.CreateNew;
+                using (var destStream = new FileStream(destFileName, fileMode, FileAccess.Write, FileShare.None, fileBufferSize, true))
+                {
+                    const int copyBufferSize = 81920;
+                    await sourceStream.CopyToAsync(destStream, copyBufferSize, cancellationToken).ConfigureAwait(false);
+                }
+            }
         }
 
         #endregion
