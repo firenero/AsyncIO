@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -21,6 +22,8 @@ namespace AsyncIO.Tests.FileSystem
         {
             var contents = Enumerable.Repeat("This is a test line.", 150).ToList();
             var path = Path.Combine(TestFolder, "AppendAllLinesAsync_Default_LinesAppended");
+
+            Directory.CreateDirectory(TestFolder);
             File.WriteAllLines(path, contents);
 
             await AsyncFile.AppendAllLinesAsync(path, contents);
@@ -75,13 +78,15 @@ namespace AsyncIO.Tests.FileSystem
         }
 
         [TestMethod]
+        [ExpectedException(typeof (OperationCanceledException))]
         public async Task AppendAllLinesAsync_CancellationToken_LinesAppended()
         {
             var contents = Enumerable.Repeat("This is a test line.", 150).ToList();
             var path = Path.Combine(TestFolder, "AppendAllLinesAsync_Default_LinesAppended");
+            Directory.CreateDirectory(TestFolder);
             File.WriteAllLines(path, contents);
 
-            contents.AddRange(Enumerable.Repeat("This is a test line.", 15000));
+            contents.AddRange(Enumerable.Repeat("This is a test line.", 150000));
 
             var cancellationTokenSource = new CancellationTokenSource(100);
             await AsyncFile.AppendAllLinesAsync(path, contents, cancellationTokenSource.Token);
@@ -94,7 +99,8 @@ namespace AsyncIO.Tests.FileSystem
         private async Task AppendAllLinesAsync_EncodingTest(Encoding encoding)
         {
             var contents = Enumerable.Repeat("This is a test line.", 150).ToList();
-            var path = Path.Combine(TestFolder, "AppendAllLinesAsync_Default_LinesAppended");
+            var path = Path.Combine(TestFolder, "AppendAllLinesAsync_Encoding_LinesAppended");
+            Directory.CreateDirectory(TestFolder);
             File.WriteAllLines(path, contents, encoding);
 
             await AsyncFile.AppendAllLinesAsync(path, contents, encoding);

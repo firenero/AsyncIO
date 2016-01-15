@@ -26,9 +26,26 @@ namespace AsyncIO.FileSystem
             return AppendAllLinesAsync(path, contents, Encoding.UTF8, cancellationToken);
         }
 
-        public static Task AppendAllLinesAsync(string path, IEnumerable<string> contents, Encoding encoding, CancellationToken cancellationToken)
+        public static async Task AppendAllLinesAsync(string path, IEnumerable<string> contents, Encoding encoding, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            if (contents == null)
+                throw new ArgumentNullException(nameof(contents));
+            if (encoding == null)
+                throw new ArgumentNullException(nameof(encoding));
+            PathValidator.EnsureCorrectFileSystemPath(path);
+
+            const int fileBufferSize = 4096;
+            using (var fileStream = new FileStream(path, FileMode.Append, FileAccess.Write, FileShare.None, fileBufferSize, true))
+            {
+                using (var writer = new StreamWriter(fileStream, encoding))
+                {
+                    foreach (var content in contents)
+                    {
+                        cancellationToken.ThrowIfCancellationRequested();
+                        await writer.WriteLineAsync(content).ConfigureAwait(false);
+                    }
+                }
+            }
         }
 
         #endregion
