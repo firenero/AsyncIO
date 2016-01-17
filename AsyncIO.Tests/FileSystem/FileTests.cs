@@ -326,6 +326,126 @@ namespace AsyncIO.Tests.FileSystem
 
         #endregion
 
+        #region DeleteAsync Tests
 
+        [TestMethod]
+        public async Task DeleteAsync_Default_FileDeleted()
+        {
+            var contents = Enumerable.Repeat("This is a test line.", 150).ToList();
+            var path = Path.Combine(TestFolder, "DeleteAsync_Default_FileDeleted");
+
+
+            Directory.CreateDirectory(TestFolder);
+            File.WriteAllLines(path, contents);
+
+            await AsyncFile.DeleteAsync(path);
+
+            Assert.IsFalse(File.Exists(path));
+        }
+
+        [TestMethod]
+        public async Task DeleteAsync_NotExists_FileDeleted()
+        {
+            var contents = Enumerable.Repeat("This is a test line.", 150).ToList();
+            var path = Path.Combine(TestFolder, "DeleteAsync_NotExists_FileDeleted");
+
+
+            Directory.CreateDirectory(TestFolder);
+            File.WriteAllLines(path, contents);
+            if (File.Exists(path))
+            {
+                File.Delete(path);
+            }
+
+            await AsyncFile.DeleteAsync(path);
+
+            Assert.IsFalse(File.Exists(path));
+        }
+
+        #endregion
+
+        #region MoveAsync Tests
+
+        [TestMethod]
+        public async Task MoveAsync_Default_FileMoved()
+        {
+            var contents = Enumerable.Repeat("This is a test line.", 150).ToList();
+            var path = Path.Combine(TestFolder, "MoveAsync_Default_FileMoved");
+
+
+            Directory.CreateDirectory(TestFolder);
+            File.WriteAllLines(path, contents);
+
+            var copyPath = "MoveAsync_Default_FileMoved_Copy";
+            File.Delete(copyPath);
+
+            await AsyncFile.MoveAsync(path, copyPath);
+
+            var result = File.ReadAllLines(copyPath);
+            CollectionAssert.AreEqual(contents, result);
+            Assert.IsFalse(File.Exists(path));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof (IOException), AllowDerivedTypes = true)]
+        public async Task MoveAsync_Overwrite_ExceptionThrown()
+        {
+            var contents = Enumerable.Repeat("This is a test line.", 150).ToList();
+            var path = Path.Combine(TestFolder, "MoveAsync_Overwrite_FileMoved");
+
+            Directory.CreateDirectory(TestFolder);
+            File.WriteAllLines(path, contents);
+
+            var copyPath = "MoveAsync_Overwrite_FileMoved_Copy";
+            if (!File.Exists(copyPath))
+                File.Create(copyPath).Dispose();
+
+            await AsyncFile.MoveAsync(path, copyPath);
+
+            var result = File.ReadAllLines(copyPath);
+            CollectionAssert.AreEqual(contents, result);
+            Assert.IsTrue(File.Exists(path));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(TaskCanceledException))]
+        public async Task MoveAsync_CancellationToken_ExceptionThrown()
+        {
+            var contents = Enumerable.Repeat("This is a test line.", 150000).ToList();
+            var path = Path.Combine(TestFolder, "MoveAsync_Default_FileMoved");
+
+            Directory.CreateDirectory(TestFolder);
+            File.WriteAllLines(path, contents);
+
+            var copyPath = "MoveAsync_Default_FileMoved_Copy";
+            File.Delete(copyPath);
+
+            var tokenSource = new CancellationTokenSource(10);
+            await AsyncFile.MoveAsync(path, copyPath, tokenSource.Token);
+
+            var result = File.ReadAllLines(copyPath);
+             Assert.IsTrue(contents.Count > result.Length);
+            Assert.IsTrue(File.Exists(path));
+        }
+
+        [TestMethod]
+        public async Task MoveAsync_SamePath_FileMoved()
+        {
+            var contents = Enumerable.Repeat("This is a test line.", 150000).ToList();
+            var path = Path.Combine(TestFolder, "MoveAsync_Default_FileMoved");
+
+            Directory.CreateDirectory(TestFolder);
+            File.WriteAllLines(path, contents);
+
+            var copyPath = path;
+
+            await AsyncFile.MoveAsync(path, copyPath);
+
+            var result = File.ReadAllLines(copyPath);
+            CollectionAssert.AreEqual(contents, result);
+            Assert.IsTrue(File.Exists(path));
+        }
+
+        #endregion
     }
 }

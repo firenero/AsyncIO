@@ -114,6 +114,24 @@ namespace AsyncIO.FileSystem
 
         #endregion
 
+        #region DeleteAsync
+
+        public static async Task DeleteAsync(string path)
+        {
+            PathValidator.EnsureCorrectFileSystemPath(path);
+            if (File.Exists(path))
+            {
+                const int bufferSize = 4096;
+                using (var fileStream = new FileStream(path, FileMode.Truncate, FileAccess.Write, FileShare.Delete, bufferSize, true))
+                {
+                    await fileStream.FlushAsync();
+                    File.Delete(path);
+                }
+            }
+        }
+
+        #endregion
+
         #region MoveAsync
 
         public static Task MoveAsync(string sourceFileName, string destFileName)
@@ -121,9 +139,26 @@ namespace AsyncIO.FileSystem
             return MoveAsync(sourceFileName, destFileName, CancellationToken.None);
         }
 
-        public static Task MoveAsync(string sourceFileName, string destFileName, CancellationToken cancellationToken)
+        public static async Task MoveAsync(string sourceFileName, string destFileName, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            PathValidator.EnsureCorrectFileSystemPath(sourceFileName);
+            PathValidator.EnsureCorrectFileSystemPath(destFileName);
+
+            if (Path.GetFullPath(sourceFileName) == Path.GetFullPath(destFileName))
+                return;
+            const int fileBufferSize = 4096;
+            using (var sourceStream = new FileStream(sourceFileName, FileMode.Open, FileAccess.Read, FileShare.Read, fileBufferSize, true))
+            {
+                using (var destStream = new FileStream(destFileName, FileMode.CreateNew, FileAccess.Write, FileShare.None, fileBufferSize, true))
+                {
+                    const int copyBufferSize = 81920;
+                    await sourceStream.CopyToAsync(destStream, copyBufferSize, cancellationToken).ConfigureAwait(false);
+                }
+            }
+            if (!cancellationToken.IsCancellationRequested)
+            {
+                await DeleteAsync(sourceFileName);
+            }
         }
 
         #endregion
