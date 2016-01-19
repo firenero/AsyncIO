@@ -51,6 +51,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="FileSystem\FileTests.cs" />
+    <Compile Include="FileSystem\PathValidatorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
