@@ -698,6 +698,7 @@ namespace AsyncIO.Tests.FileSystem
 
             var tokenSource = new CancellationTokenSource();
             tokenSource.Cancel();
+
             await AsyncFile.WriteAllBytesAsync(path, bytes, tokenSource.Token).ConfigureAwait(false);
 
             var result = File.ReadAllBytes(path);
