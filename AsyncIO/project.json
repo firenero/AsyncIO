@@ -1,6 +1,6 @@
 ﻿{
   "version": "1.0.0.0",
-  "description": "AsyncIO",
+  "description": "Common asynchronous operations with file system.\nAppendAllLinesAsync\nAppendAllTextAsync\nCopyAsync\nDeleteAsync\nMoveAsync\nReadAllBytesAsync\nReadAllLinesAsync\nReadAllTextAsync\nWriteAllBytesAsync\nWriteAllLinesAsync\nWriteAllTextAsync",
   "authors": [ "Mykhailo Matviiv"],
   "tags": [ "io asynchronous async core .net file files directory" ],
   "projectUrl": "https://github.com/FireNero/AsyncIO",
