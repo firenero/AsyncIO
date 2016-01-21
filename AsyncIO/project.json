@@ -37,10 +37,9 @@
       "dependencies": {
         "System.Runtime": "4.0.20",
         "System.Runtime.Extensions": "4.0.0",
-        "System.Threading": "4.0.0.0",
-        "System.Threading.Tasks": "4.0.0.0",
         "System.Linq": "4.0.0.0",
-        "System.IO.FileSystem": "4.0.0"
+        "System.IO.FileSystem": "4.0.0",
+        "JetBrains.Annotations": "10.1.1-eap"
       }
     }
   }
