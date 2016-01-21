@@ -4,7 +4,9 @@ using System.IO;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+#if !DNXCORE50
 using JetBrains.Annotations;
+#endif
 
 namespace AsyncIO.FileSystem
 {
@@ -27,7 +29,11 @@ namespace AsyncIO.FileSystem
             return AppendAllLinesAsync(path, contents, Encoding.UTF8, cancellationToken);
         }
 
+#if DNXCORE50
+        public static async Task AppendAllLinesAsync(string path, IEnumerable<string> contents, Encoding encoding, CancellationToken cancellationToken)
+#else
         public static async Task AppendAllLinesAsync(string path, [NotNull] IEnumerable<string> contents, [NotNull] Encoding encoding, CancellationToken cancellationToken)
+#endif
         {
             if (contents == null)
                 throw new ArgumentNullException(nameof(contents));
@@ -58,7 +64,11 @@ namespace AsyncIO.FileSystem
             return AppendAllTextAsync(path, contents, Encoding.UTF8);
         }
 
+#if DNXCORE50
+        public static async Task AppendAllTextAsync(string path, string contents, Encoding encoding)
+#else
         public static async Task AppendAllTextAsync(string path, [NotNull] string contents, [NotNull] Encoding encoding)
+#endif
         {
             if (contents == null)
                 throw new ArgumentNullException(nameof(contents));
@@ -146,8 +156,10 @@ namespace AsyncIO.FileSystem
             PathValidator.EnsureCorrectFileSystemPath(sourceFileName);
             PathValidator.EnsureCorrectFileSystemPath(destFileName);
 
+#if !DNXCORE50
             if (Path.GetFullPath(sourceFileName) == Path.GetFullPath(destFileName))
                 return;
+#endif
             const int fileBufferSize = 4096;
             using (var sourceStream = new FileStream(sourceFileName, FileMode.Open, FileAccess.Read, FileShare.Read, fileBufferSize, true))
             {
@@ -208,7 +220,11 @@ namespace AsyncIO.FileSystem
             return ReadAllLinesAsync(path, Encoding.UTF8, cancellationToken);
         }
 
+#if DNXCORE50
+        public static async Task<string[]> ReadAllLinesAsync(string path, Encoding encoding, CancellationToken cancellationToken)
+#else
         public static async Task<string[]> ReadAllLinesAsync([NotNull] string path, [NotNull] Encoding encoding, CancellationToken cancellationToken)
+#endif
         {
             if (encoding == null)
                 throw new ArgumentNullException(nameof(encoding));
@@ -296,7 +312,11 @@ namespace AsyncIO.FileSystem
 
         }
 
+#if DNXCORE50
+        public static async Task WriteAllLinesAsync(string path, IEnumerable<string> contents, Encoding encoding, CancellationToken cancellationToken)
+#else
         public static async Task WriteAllLinesAsync(string path, [NotNull] IEnumerable<string> contents, [NotNull] Encoding encoding, CancellationToken cancellationToken)
+#endif
         {
             if (contents == null)
                 throw new ArgumentNullException(nameof(contents));
@@ -327,7 +347,11 @@ namespace AsyncIO.FileSystem
             return WriteAllTextAsync(path, contents, Encoding.UTF8);
         }
 
+#if DNXCORE50
+        public static async Task WriteAllTextAsync(string path, string contents, Encoding encoding)
+#else
         public static async Task WriteAllTextAsync(string path, [NotNull] string contents, [NotNull] Encoding encoding)
+#endif
         {
             if (contents == null)
                 throw new ArgumentNullException(nameof(contents));

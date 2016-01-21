@@ -1,0 +1,47 @@
+﻿{
+  "version": "1.0.0.0",
+  "description": "AsyncIO",
+  "authors": [ "Mykhailo Matviiv"],
+  "tags": [ "io asynchronous async core .net file files directory" ],
+  "projectUrl": "https://github.com/FireNero/AsyncIO",
+  "licenseUrl": "https://github.com/FireNero/AsyncIO/blob/master/LICENSE",
+
+  "configurations": {
+    "Debug": {
+      "compilationOptions": {
+        "define": [ "DEBUG", "TRACE" ]
+      }
+    },
+    "Release": {
+      "compilationOptions": {
+        "define": [ "RELEASE", "TRACE" ],
+        "optimize": true
+      }
+    }
+  },
+
+  "code": [ "**/*.cs" ],
+
+  "frameworks": {
+    "net45": {
+      "dependencies": {
+        "JetBrains.Annotations": "10.0.0"
+      }
+    },
+    "net451": {
+      "dependencies": {
+        "JetBrains.Annotations": "10.0.0"
+      }
+    },
+    "dnxcore50": {
+      "dependencies": {
+        "System.Runtime": "4.0.20",
+        "System.Runtime.Extensions": "4.0.0",
+        "System.Threading": "4.0.0.0",
+        "System.Threading.Tasks": "4.0.0.0",
+        "System.Linq": "4.0.0.0",
+        "System.IO.FileSystem": "4.0.0"
+      }
+    }
+  }
+}
