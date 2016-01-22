@@ -146,7 +146,7 @@ namespace AsyncIO.FileSystem
             PathValidator.EnsureCorrectFileSystemPath(sourceFileName);
             PathValidator.EnsureCorrectFileSystemPath(destFileName);
 
-            if (Path.GetFullPath(sourceFileName) == Path.GetFullPath(destFileName))
+            if (Path.Combine(Path.GetDirectoryName(sourceFileName), sourceFileName) == Path.Combine(Path.GetDirectoryName(destFileName), destFileName))
                 return;
             const int fileBufferSize = 4096;
             using (var sourceStream = new FileStream(sourceFileName, FileMode.Open, FileAccess.Read, FileShare.Read, fileBufferSize, true))
