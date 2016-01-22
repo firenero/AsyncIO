@@ -1,10 +1,11 @@
 ﻿{
-  "version": "1.0.0.0",
+  "version": "1.0.2.0",
   "description": "Common asynchronous operations with file system.\nAppendAllLinesAsync\nAppendAllTextAsync\nCopyAsync\nDeleteAsync\nMoveAsync\nReadAllBytesAsync\nReadAllLinesAsync\nReadAllTextAsync\nWriteAllBytesAsync\nWriteAllLinesAsync\nWriteAllTextAsync",
-  "authors": [ "Mykhailo Matviiv"],
+  "authors": [ "Mykhailo Matviiv" ],
   "tags": [ "io asynchronous async core .net file files directory" ],
   "projectUrl": "https://github.com/FireNero/AsyncIO",
   "licenseUrl": "https://github.com/FireNero/AsyncIO/blob/master/LICENSE",
+  "releaseNotes": "Add DNX Core 5.0 and UWP support.",
 
   "configurations": {
     "Debug": {
@@ -25,12 +26,10 @@
   "frameworks": {
     "net45": {
       "dependencies": {
-        "JetBrains.Annotations": "10.0.0"
       }
     },
     "net451": {
       "dependencies": {
-        "JetBrains.Annotations": "10.0.0"
       }
     },
     "dnxcore50": {
@@ -38,8 +37,15 @@
         "System.Runtime": "4.0.20",
         "System.Runtime.Extensions": "4.0.0",
         "System.Linq": "4.0.0.0",
-        "System.IO.FileSystem": "4.0.0",
-        "JetBrains.Annotations": "10.1.1-eap"
+        "System.IO.FileSystem": "4.0.0"
+      }
+    },
+    "netcore50": {
+      "dependencies": {
+        "System.Runtime": "4.0.20",
+        "System.Runtime.Extensions": "4.0.0",
+        "System.Linq": "4.0.0.0",
+        "System.IO.FileSystem": "4.0.0"
       }
     }
   }

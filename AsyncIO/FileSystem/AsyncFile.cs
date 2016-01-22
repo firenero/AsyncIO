@@ -4,7 +4,6 @@ using System.IO;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using JetBrains.Annotations;
 
 namespace AsyncIO.FileSystem
 {
@@ -27,7 +26,7 @@ namespace AsyncIO.FileSystem
             return AppendAllLinesAsync(path, contents, Encoding.UTF8, cancellationToken);
         }
 
-        public static async Task AppendAllLinesAsync(string path, [NotNull] IEnumerable<string> contents, [NotNull] Encoding encoding, CancellationToken cancellationToken)
+        public static async Task AppendAllLinesAsync(string path, IEnumerable<string> contents,  Encoding encoding, CancellationToken cancellationToken)
         {
             if (contents == null)
                 throw new ArgumentNullException(nameof(contents));
@@ -58,7 +57,7 @@ namespace AsyncIO.FileSystem
             return AppendAllTextAsync(path, contents, Encoding.UTF8);
         }
 
-        public static async Task AppendAllTextAsync(string path, [NotNull] string contents, [NotNull] Encoding encoding)
+        public static async Task AppendAllTextAsync(string path,  string contents,  Encoding encoding)
         {
             if (contents == null)
                 throw new ArgumentNullException(nameof(contents));
@@ -208,7 +207,7 @@ namespace AsyncIO.FileSystem
             return ReadAllLinesAsync(path, Encoding.UTF8, cancellationToken);
         }
 
-        public static async Task<string[]> ReadAllLinesAsync([NotNull] string path, [NotNull] Encoding encoding, CancellationToken cancellationToken)
+        public static async Task<string[]> ReadAllLinesAsync( string path,  Encoding encoding, CancellationToken cancellationToken)
         {
             if (encoding == null)
                 throw new ArgumentNullException(nameof(encoding));
@@ -296,7 +295,7 @@ namespace AsyncIO.FileSystem
 
         }
 
-        public static async Task WriteAllLinesAsync(string path, [NotNull] IEnumerable<string> contents, [NotNull] Encoding encoding, CancellationToken cancellationToken)
+        public static async Task WriteAllLinesAsync(string path,  IEnumerable<string> contents,  Encoding encoding, CancellationToken cancellationToken)
         {
             if (contents == null)
                 throw new ArgumentNullException(nameof(contents));
@@ -327,7 +326,7 @@ namespace AsyncIO.FileSystem
             return WriteAllTextAsync(path, contents, Encoding.UTF8);
         }
 
-        public static async Task WriteAllTextAsync(string path, [NotNull] string contents, [NotNull] Encoding encoding)
+        public static async Task WriteAllTextAsync(string path,  string contents,  Encoding encoding)
         {
             if (contents == null)
                 throw new ArgumentNullException(nameof(contents));
