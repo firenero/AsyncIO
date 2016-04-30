@@ -36,7 +36,6 @@
       "dependencies": {
         "System.Runtime": "4.0.20",
         "System.Runtime.Extensions": "4.0.0",
-        "System.Linq": "4.0.0.0",
         "System.IO.FileSystem": "4.0.0"
       }
     },
@@ -44,7 +43,6 @@
       "dependencies": {
         "System.Runtime": "4.0.20",
         "System.Runtime.Extensions": "4.0.0",
-        "System.Linq": "4.0.0.0",
         "System.IO.FileSystem": "4.0.0"
       }
     }
