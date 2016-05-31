@@ -55,9 +55,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AsyncIO.Tests.Stub\AsyncIO.Tests.Stub.csproj">
-      <Project>{afbe5d0d-b2ba-4249-80ba-986233f76fd8}</Project>
-      <Name>AsyncIO.Tests.Stub</Name>
+    <ProjectReference Include="..\AsyncIO\AsyncIO.csproj">
+      <Project>{510B6F48-553C-432F-8874-3AC21A12B4B6}</Project>
+      <Name>AsyncIO</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

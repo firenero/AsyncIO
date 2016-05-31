@@ -126,7 +126,7 @@ namespace AsyncIO.FileSystem
         /// </exception>
         /// <remarks>The method creates the file if it doesn’t exist, but it doesn't create new directories. Therefore, the value of the path parameter must contain existing directories.</remarks>
         /// <returns>Task that represents asynchronous operation.</returns>
-        public static async Task AppendAllLinesAsync(string path, IEnumerable<string> contents,  Encoding encoding, CancellationToken cancellationToken)
+        public static async Task AppendAllLinesAsync(string path, IEnumerable<string> contents, Encoding encoding, CancellationToken cancellationToken)
         {
             if (contents == null)
                 throw new ArgumentNullException(nameof(contents));
@@ -208,7 +208,7 @@ namespace AsyncIO.FileSystem
         /// <para>The caller does not have the required permission.</para>
         /// </exception>
         /// <returns>Task that represents asynchronous operation.</returns>
-        public static async Task AppendAllTextAsync(string path,  string contents,  Encoding encoding)
+        public static async Task AppendAllTextAsync(string path, string contents, Encoding encoding)
         {
             if (contents == null)
                 throw new ArgumentNullException(nameof(contents));
@@ -813,7 +813,7 @@ namespace AsyncIO.FileSystem
         /// <exception cref="FileNotFoundException">The file specified in <paramref name="path"/> was not found.</exception>
         /// <exception cref="NotSupportedException"><paramref name="path"/> is in an invalid format.</exception>
         /// <exception cref="SecurityException">The caller does not have the required permission.</exception>
-        public static async Task<string[]> ReadAllLinesAsync( string path,  Encoding encoding, CancellationToken cancellationToken)
+        public static async Task<string[]> ReadAllLinesAsync(string path, Encoding encoding, CancellationToken cancellationToken)
         {
             if (encoding == null)
                 throw new ArgumentNullException(nameof(encoding));
@@ -1141,7 +1141,7 @@ namespace AsyncIO.FileSystem
         /// <para>-or-</para>
         /// <para>The caller does not have the required permission.</para> 
         /// </exception>
-        public static async Task WriteAllLinesAsync(string path,  IEnumerable<string> contents,  Encoding encoding, CancellationToken cancellationToken)
+        public static async Task WriteAllLinesAsync(string path, IEnumerable<string> contents, Encoding encoding, CancellationToken cancellationToken)
         {
             if (contents == null)
                 throw new ArgumentNullException(nameof(contents));
