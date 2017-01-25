@@ -1,8 +1,8 @@
 # AsyncIO
 
-AsyncIO is easy-to-use .NET library for common common asynchronous operations with file system. Operations implemented is fully asynchronous and do not block any threads.
+AsyncIO is easy-to-use .NET library for common async IO operations with file system. Operations implemented are fully asynchronous and do not block any threads.
 
-AsyncIO provides decent control over async execution (e.g. support of `CancellationToken`) and provides API for specifying `Encoding`.
+AsyncIO provides decent control over async execution (e.g. support of [`CancellationToken`](https://msdn.microsoft.com/en-us/library/system.threading.cancellationtoken(v=vs.110).aspx)) and provides API for specifying [`Encoding`](https://msdn.microsoft.com/en-us/library/system.text.encoding(v=vs.110).aspx).
 
 ## Installation
 
