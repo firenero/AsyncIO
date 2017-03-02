@@ -855,11 +855,10 @@ namespace AsyncIO.FileSystem
         /// The resulting string does not contain the terminating carriage return and/or line feed.
         /// </para>
         /// <para>The file handle is guaranteed to be closed by this method, even if exceptions are raised.</para>
-        /// <para>To use the encoding settings as configured for your operating system, specify the <see cref="Encoding.Default"/> property for the encoding parameter.</para>
         /// </remarks>
         /// 
         /// <exception cref="ArgumentException"><paramref name="path"/> is a zero-length string, contains only white space, or contains invalid characters as defined in <see cref="Path.GetInvalidPathChars"/></exception>
-        /// <exception cref="ArgumentNullException"><paramref name="path"/> or <paramref name="encoding"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="path"/> is <c>null</c>.</exception>
         /// <exception cref="PathTooLongException">The specified path, file name, or both exceed the system-defined maximum length. For example, on Windows-based platforms, paths must be less than 248 characters, and file names must be less than 260 characters.</exception>
         /// <exception cref="DirectoryNotFoundException">The path specified in <paramref name="path"/> is invalid, (dor example, it is on an unmapped drive).</exception>
         /// <exception cref="IOException">An I/O error occurred while opening the file.</exception>
@@ -896,7 +895,6 @@ namespace AsyncIO.FileSystem
         /// The resulting string does not contain the terminating carriage return and/or line feed.
         /// </para>
         /// <para>The file handle is guaranteed to be closed by this method, even if exceptions are raised.</para>
-        /// <para>To use the encoding settings as configured for your operating system, specify the <see cref="Encoding.Default"/> property for the encoding parameter.</para>
         /// </remarks>
         /// 
         /// <exception cref="ArgumentException"><paramref name="path"/> is a zero-length string, contains only white space, or contains invalid characters as defined in <see cref="Path.GetInvalidPathChars"/></exception>

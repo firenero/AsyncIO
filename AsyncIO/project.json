@@ -1,0 +1,36 @@
+{
+  "version": "1.2.1-*",
+
+  "title": "AsyncIO.DotNet",
+  "authors": [
+    "Mykhailo Matviiv"
+  ],
+  "description":
+    "Easy-to-use library for common async IO file system operations. Implemented operations are fully asynchronous and do not use threads from thread pool.\nAsyncIO provides decent control over async execution (e.g. support of CancellationToken) and provides API for specifying encoding.",
+  "packOptions": {
+    "owners": [
+      "Mykhailo Matviiv"
+    ],
+    "summary": "Easy-to-use library for common asynchronous file system operations.",
+    "licenseUrl": "https://github.com/FireNero/AsyncIO/blob/master/LICENSE",
+    "projectUrl": "https://github.com/FireNero/AsyncIO",
+    "tags": [
+      ".net c# async io file filesystem"
+    ],
+    "releaseNotes": "Add .NET Core support.\nAdd xml documentation for all implemented operations."
+  },
+  "frameworks": {
+    "netstandard1.6": {
+      "imports": "dnxcore50",
+      "dependencies": {
+        "NETStandard.Library": "1.6.0"
+      }
+    },
+    "net45": {
+    
+    }
+  },
+  "buildOptions": {
+    "xmlDoc": true
+  }
+}
