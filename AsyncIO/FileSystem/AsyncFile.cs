@@ -73,7 +73,7 @@ namespace AsyncIO.FileSystem
         }
 
         /// <summary>
-        /// Appends lines asynchronously to a file by using a specified encoding, and then closes the file, and monitors cancellation requests. 
+        /// Appends lines asynchronously to a file, and then closes the file, and monitors cancellation requests. 
         /// If the specified file does not exist, this method creates a file, writes the specified lines to the file, and then closes the file.
         /// </summary>
         /// <param name="path">The file to append the lines to. The file is created if it doesn't already exist.</param>
@@ -1107,7 +1107,6 @@ namespace AsyncIO.FileSystem
         public static Task WriteAllLinesAsync(string path, IEnumerable<string> contents, CancellationToken cancellationToken)
         {
             return WriteAllLinesAsync(path, contents, Encoding.UTF8, cancellationToken);
-
         }
 
         /// <summary>
