@@ -13,6 +13,7 @@ Also, you can download compiled dll from the [releases page](https://github.com/
 ## Usage
 
 AsyncIO is very easy to use especially if you used [`System.IO.File`](https://msdn.microsoft.com/en-us/library/system.io.file(v=vs.110).aspx). There is a static class `AsyncFile` to access all supported async io operations.
+You can also use extension methods for [`System.IO.FileInfo`](https://msdn.microsoft.com/en-us/library/system.io.fileinfo(v=vs.110).aspx).
 
 ### Examples
 
@@ -42,7 +43,13 @@ catch (OperationCancelledException e)
 {
     // Handle cancellation here.
 }
+```
 
+* [`System.IO.FileInfo`](https://msdn.microsoft.com/en-us/library/system.io.fileinfo(v=vs.110).aspx) extension method usage
+
+```csharp
+var fileInfo = new FileInfo("path_to_file");
+var text = await fileInfo.ReadAllTextAsync("path_to_file");
 ```
 
 ### Supported methods
